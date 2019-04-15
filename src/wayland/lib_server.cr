@@ -7,6 +7,26 @@ module Wayland
         type WlClient = Void*
         type WlGlobal = Void*
 
+        enum WlOutputSubpixel
+            WL_OUTPUT_SUBPIXEL_UNKNOWN = 0,
+            WL_OUTPUT_SUBPIXEL_NONE = 1,
+            WL_OUTPUT_SUBPIXEL_HORIZONTAL_RGB = 2,
+            WL_OUTPUT_SUBPIXEL_HORIZONTAL_BGR = 3,
+            WL_OUTPUT_SUBPIXEL_VERTICAL_RGB = 4, 
+            WL_OUTPUT_SUBPIXEL_VERTICAL_BGR = 5
+        end
+
+        enum WlOutputTransform
+            WL_OUTPUT_TRANSFORM_NORMAL = 0,
+            WL_OUTPUT_TRANSFORM_90 = 1,
+            WL_OUTPUT_TRANSFORM_180 = 2,
+            WL_OUTPUT_TRANSFORM_270 = 3,
+            WL_OUTPUT_TRANSFORM_FLIPPED = 4,
+            WL_OUTPUT_TRANSFORM_FLIPPED_90 = 5,
+            WL_OUTPUT_TRANSFORM_FLIPPED_180 = 6,
+            WL_OUTPUT_TRANSFORM_FLIPPED_270 = 7
+        end
+
         alias SizeT = UInt64 
 
         fun display_create = wl_display_create : WlDisplay*?
@@ -16,6 +36,17 @@ module Wayland
         fun display_destroy = wl_display_destroy(display : WlDisplay*) : Void 
 
         fun display_run = wl_display_run(display : WlDisplay*) : NoReturn
+
+        fun wl_signal_add (signal : Void*, listener : WlListener*)
+
+        struct WlSignal
+            listener_list : WlList
+        end
+
+        struct WlListener 
+            link : WlList
+            notify : WlListener*, Void* -> Void
+        end
 
         struct WlList
             prev : WlList*

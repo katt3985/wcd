@@ -1,4 +1,5 @@
 require "./wayland/display"
+require "./wlroots/output_listener"
 require "./wlroots/backend"
 # TODO: Write documentation for `Wcd`
 module Wcd
