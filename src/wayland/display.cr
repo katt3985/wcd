@@ -1,4 +1,5 @@
 require "./lib_server"
+require "./event_loop"
 module Wayland
     class Display
         def self.new
@@ -9,9 +10,10 @@ module Wayland
 
         def initialize(@display_pointer : LibServer::WlDisplay*)
         end
-        #TODO: wrap event loop
         def get_event_loop
-            LibServer.display_get_event_loop(@display_pointer)
+            ptr = LibServer.display_get_event_loop(@display_pointer)
+            raise "error creating event loop" if ptr.nil?
+            EventLoop.new(ptr)
         end
 
         def destroy

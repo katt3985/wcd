@@ -8,7 +8,6 @@ module Wcd
     display = Wayland::Display.new
 
     event_loop = display.get_event_loop
-    return if event_loop.nil?
 
     backend = Wlroots::Backend.autocreate(display)
 
