@@ -43,6 +43,12 @@ module Wayland
             listener_list : WlList
         end
 
+
+        WL_LISTENER_CONTAINER_OFFSET = 8
+        struct WlListenerContainer
+            parent : Void*
+            listener : WlListener
+        end
         struct WlListener 
             link : WlList
             notify : WlListener*, Void* -> Void

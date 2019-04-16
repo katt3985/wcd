@@ -7,7 +7,8 @@ module Wcd
 
   def self.run 
     display = Wayland::Display.new
-
+    listener = Wlroots::OutputListener.new
+    listener.test
     event_loop = display.get_event_loop
 
     backend = Wlroots::Backend.autocreate(display)
